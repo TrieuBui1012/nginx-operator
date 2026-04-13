@@ -28,8 +28,18 @@ type NginxOperatorSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of NginxOperator. Edit nginxoperator_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Port is the port number exposed by the Nginx container.
+	// +kubebuilder:validation:Minimum=1
+	// +kubebuilder:validation:Maximum=65535
+	Port *int32 `json:"port,omitempty"`
+
+	// Replicas is the desired number of Nginx replicas.
+	// +kubebuilder:validation:Minimum=1
+	Replicas *int32 `json:"replicas,omitempty"`
+
+	// ForceRedeploy can be changed to trigger a rollout even when
+	// no functional config has changed.
+	ForceRedeploy string `json:"forceRedeploy,omitempty"`
 }
 
 // NginxOperatorStatus defines the observed state of NginxOperator.
