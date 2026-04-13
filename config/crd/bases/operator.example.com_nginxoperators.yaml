@@ -1,0 +1,66 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: nginxoperators.operator.example.com
+spec:
+  group: operator.example.com
+  names:
+    kind: NginxOperator
+    listKind: NginxOperatorList
+    plural: nginxoperators
+    singular: nginxoperator
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: NginxOperator is the Schema for the nginxoperators API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: NginxOperatorSpec defines the desired state of NginxOperator.
+            properties:
+              forceRedeploy:
+                description: |-
+                  ForceRedeploy can be changed to trigger a rollout even when
+                  no functional config has changed.
+                type: string
+              port:
+                description: Port is the port number exposed by the Nginx container.
+                format: int32
+                maximum: 65535
+                minimum: 1
+                type: integer
+              replicas:
+                description: Replicas is the desired number of Nginx replicas.
+                format: int32
+                minimum: 1
+                type: integer
+            type: object
+          status:
+            description: NginxOperatorStatus defines the observed state of NginxOperator.
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
