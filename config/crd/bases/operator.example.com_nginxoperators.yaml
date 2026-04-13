@@ -45,6 +45,7 @@ spec:
                   no functional config has changed.
                 type: string
               port:
+                default: 8080
                 description: Port is the port number exposed by the Nginx container.
                 format: int32
                 maximum: 65535
@@ -55,6 +56,8 @@ spec:
                 format: int32
                 minimum: 1
                 type: integer
+            required:
+            - port
             type: object
           status:
             description: NginxOperatorStatus defines the observed state of NginxOperator.

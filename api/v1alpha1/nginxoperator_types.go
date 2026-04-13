@@ -31,6 +31,8 @@ type NginxOperatorSpec struct {
 	// Port is the port number exposed by the Nginx container.
 	// +kubebuilder:validation:Minimum=1
 	// +kubebuilder:validation:Maximum=65535
+	// +kubebuilder:default=8080
+	// +kubebuilder:validation:Required
 	Port *int32 `json:"port,omitempty"`
 
 	// Replicas is the desired number of Nginx replicas.
