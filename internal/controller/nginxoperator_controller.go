@@ -131,6 +131,7 @@ func (r *NginxOperatorReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 		LastTransitionTime: metav1.NewTime(time.Now()),
 		Message:            "operator successfully reconciling",
 	})
+	r.Status().Update(ctx, operatorCR)
 
 	condition, err := conditions.InClusterFactory{Client: r.Client}.
 		NewCondition(apiv2.ConditionType(apiv2.Upgradeable))
