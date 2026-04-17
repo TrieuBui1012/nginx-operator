@@ -14,6 +14,11 @@ spec:
       displayName: Nginx Operator
       kind: NginxOperator
       name: nginxoperators.operator.example.com
+      version: v1alpha2
+    - description: NginxOperator is the Schema for the nginxoperators API.
+      displayName: Nginx Operator
+      kind: NginxOperator
+      name: nginxoperators.operator.example.com
       version: v1alpha1
   description: A basic HA NGINX Operator
   displayName: Nginx Operator
@@ -44,4 +49,5 @@ spec:
   provider:
     name: trieubui1012
     url: https://github.com/TrieuBui1012/nginx-operator
+  replaces: nginx-operator.v0.0.1
   version: 0.0.0

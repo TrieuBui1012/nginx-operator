@@ -38,7 +38,9 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
 	operatorv1alpha1 "github.com/TrieuBui1012/nginx-operator.git/api/v1alpha1"
+	operatorv1alpha2 "github.com/TrieuBui1012/nginx-operator.git/api/v1alpha2"
 	"github.com/TrieuBui1012/nginx-operator.git/internal/controller"
+	webhookv1alpha2 "github.com/TrieuBui1012/nginx-operator.git/internal/webhook/v1alpha2"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -51,6 +53,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(operatorv1alpha1.AddToScheme(scheme))
+	utilruntime.Must(operatorv1alpha2.AddToScheme(scheme))
 	// +kubebuilder:scaffold:scheme
 }
 
@@ -208,6 +211,13 @@ func main() {
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "NginxOperator")
 		os.Exit(1)
+	}
+	// nolint:goconst
+	if os.Getenv("ENABLE_WEBHOOKS") != "false" {
+		if err := webhookv1alpha2.SetupNginxOperatorWebhookWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create webhook", "webhook", "NginxOperator")
+			os.Exit(1)
+		}
 	}
 	// +kubebuilder:scaffold:builder
 
